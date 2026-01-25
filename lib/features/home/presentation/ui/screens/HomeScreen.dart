@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_daily_practice/features/home/domain/entities/user.dart';
+import 'package:flutter_daily_practice/features/home/presentation/bloc/home_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,8 +21,40 @@ class _HomeScreenState extends State<HomeScreen> {
   String? email;
   int? id;
 
+  List<User> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<HomeBloc>().add(GetUsersEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {
+        if (state is SuccessState) {
+          users = state.users;
+        }
+      },
+      buildWhen: (prev, curr) =>
+          curr is SuccessState || curr is LoadingState || curr is ErrorState,
+      builder: (context, state) {
+        if (state is LoadingState) {
+          return Text("Loading");
+        }
+        if (state is ErrorState) {
+          return Text("Error State");
+        }
+        return Scaffold(
+          body: users.isNotEmpty ? Text(users[0].name) : SizedBox(),
+        );
+      },
+    );
+  }
+
+  Scaffold _formScreen() {
     return Scaffold(
       body: Column(
         mainAxisSize: MainAxisSize.max,
