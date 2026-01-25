@@ -30,4 +30,21 @@ class UserModel extends User {
           : null,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'username': username,
+      'email': email,
+      'address': address != null
+          ? (address as AddressModel).toJson()
+          : null,
+      'phone': phone,
+      'website': website,
+      'company': company != null
+          ? (company as CompanyModel).toJson()
+          : null,
+    };
+  }
 }

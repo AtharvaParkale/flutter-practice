@@ -10,4 +10,8 @@ class CompanyModel extends Company {
       bs: json['bs'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {'name': name, 'catchPhrase': catchPhrase, 'bs': bs};
+  }
 }
