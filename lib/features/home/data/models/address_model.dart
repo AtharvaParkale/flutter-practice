@@ -20,4 +20,14 @@ class AddressModel extends Address {
       geo: json['geo'] != null ? GeoModel.fromJson(json['geo']) : null,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'street': street,
+      'suite': suite,
+      'city': city,
+      'zipcode': zipcode,
+      'geo': geo != null ? (geo as GeoModel).toJson() : null,
+    };
+  }
 }

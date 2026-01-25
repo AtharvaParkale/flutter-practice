@@ -19,9 +19,8 @@ class HomeRemoteDatasourceImpl implements HomeRemoteDataSource {
         },
       );
       final List<dynamic> users = jsonDecode(data.body);
-
       return users.map((user) => UserModel.fromJson(user)).toList();
-    } catch (e, stk) {
+    } catch (e) {
       throw Exception(e);
     }
   }
