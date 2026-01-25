@@ -31,7 +31,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       emit(SuccessState(users: users));
     } catch (e) {
-      print("Error : ${e}");
       emit(ErrorState());
     }
   }

@@ -23,6 +23,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<User> users = [];
 
+  // Pagination
+  int _page = 1;
+  bool _isLoading = false;
+  bool _hasMore = true;
+
+  final ScrollController _scrollController = ScrollController();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   context.read<HomeBloc>().add(GetUsersEvent());
+  // }
+
   @override
   void initState() {
     super.initState();
@@ -35,21 +49,49 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
         if (state is SuccessState) {
-          users = state.users;
+          users = [
+            ...state.users,
+            ...state.users,
+            ...state.users,
+            ...state.users,
+          ];
         }
       },
       buildWhen: (prev, curr) =>
           curr is SuccessState || curr is LoadingState || curr is ErrorState,
       builder: (context, state) {
-        if (state is LoadingState) {
-          return Text("Loading");
+        if (state is SuccessState) {
+          return Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar(title: const Text('Home Screen'), floating: true),
+                SliverAnimatedList(
+                  initialItemCount: users.length,
+                  itemBuilder:
+                      (
+                        BuildContext context,
+                        int index,
+                        Animation<double> animation,
+                      ) {
+                        final user = users[index];
+
+                        return SizeTransition(
+                          sizeFactor: animation,
+                          child: ListTile(
+                            title: Text(user.name),
+                            subtitle: Text(user.email),
+                          ),
+                        );
+                      },
+                ),
+              ],
+            ),
+          );
         }
         if (state is ErrorState) {
           return Text("Error State");
         }
-        return Scaffold(
-          body: users.isNotEmpty ? Text(users[0].name) : SizedBox(),
-        );
+        return Scaffold(body: Center(child: CircularProgressIndicator()));
       },
     );
   }

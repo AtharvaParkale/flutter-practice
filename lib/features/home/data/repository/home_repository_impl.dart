@@ -11,13 +11,10 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<List<User>> getAllUsers() async {
     try {
       final users = await remoteDataSource.getAllUsers();
-
       return users.map((user) {
-        print(user.name);
         return user as User;
       }).toList();
     } catch (e, stk) {
-      print("Erro : ${stk}");
       throw Exception(e);
     }
   }
