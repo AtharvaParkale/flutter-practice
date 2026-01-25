@@ -23,20 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<User> users = [];
 
-  // Pagination
-  int _page = 1;
-  bool _isLoading = false;
-  bool _hasMore = true;
-
-  final ScrollController _scrollController = ScrollController();
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //
-  //   context.read<HomeBloc>().add(GetUsersEvent());
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -79,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           sizeFactor: animation,
                           child: ListTile(
                             title: Text(user.name),
-                            subtitle: Text(user.email),
+                            subtitle: Text(user.address?.geo?.lat ?? ""),
                           ),
                         );
                       },
