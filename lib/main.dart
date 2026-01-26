@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_daily_practice/features/animations/ticker_screen.dart';
 import 'package:flutter_daily_practice/features/home/data/datasources/json_data_source.dart';
 import 'package:flutter_daily_practice/features/home/data/datasources/remote_datasource.dart';
 import 'package:flutter_daily_practice/features/home/data/datasources/shared_preferences_datasource.dart';
@@ -22,18 +23,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: BlocProvider(
-        create: (BuildContext context) => HomeBloc(
-          getUsersUseCase: GetUsersUseCase(
-            homeRepository: HomeRepositoryImpl(
-              remoteDataSource: HomeRemoteDatasourceImpl(),
-              jsonDataSource: JsonDataSourceImpl(),
-              sharedPreferencesDatasource: SharedPreferencesImpl(),
-            ),
-          ),
-        ),
-        child: HomeScreen(),
-      ),
+      // home: BlocProvider(
+      //   create: (BuildContext context) => HomeBloc(
+      //     getUsersUseCase: GetUsersUseCase(
+      //       homeRepository: HomeRepositoryImpl(
+      //         remoteDataSource: HomeRemoteDatasourceImpl(),
+      //         jsonDataSource: JsonDataSourceImpl(),
+      //         sharedPreferencesDatasource: SharedPreferencesImpl(),
+      //       ),
+      //     ),
+      //   ),
+      //   child: HomeScreen(),
+      // ),
+      home: SimpleTicker(),
     );
   }
 }
