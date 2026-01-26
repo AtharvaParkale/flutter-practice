@@ -6,7 +6,7 @@ import 'package:flutter_daily_practice/features/home/domain/repositories/home_re
 
 class HomeRepositoryImpl implements HomeRepository {
   final HomeRemoteDataSource remoteDataSource;
-  final JsonDataSourceImpl jsonDataSource;
+  final JsonDataSource jsonDataSource;
   final SharedPreferencesDatasource sharedPreferencesDatasource;
 
   HomeRepositoryImpl({
@@ -18,13 +18,13 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<List<User>> getAllUsers() async {
     try {
-      final localData = await sharedPreferencesDatasource.getAllUsers();
-
-      if (localData.isNotEmpty) return localData;
+      // final localData = await sharedPreferencesDatasource.getAllUsers();
+      //
+      // if (localData.isNotEmpty) return localData;
 
       final users = await jsonDataSource.getUsers();
 
-      sharedPreferencesDatasource.saveAllUsers(users);
+      // sharedPreferencesDatasource.saveAllUsers(users);
 
       return users.map((user) {
         return user as User;

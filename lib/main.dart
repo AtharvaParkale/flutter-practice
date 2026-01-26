@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_daily_practice/features/animations/layout_with_slivers.dart';
-import 'package:flutter_daily_practice/features/animations/layout_without_slivers.dart';
-import 'package:flutter_daily_practice/features/animations/slivers_screen.dart';
-import 'package:flutter_daily_practice/features/animations/ticker_screen.dart';
-import 'package:flutter_daily_practice/features/home/data/datasources/json_data_source.dart';
-import 'package:flutter_daily_practice/features/home/data/datasources/remote_datasource.dart';
-import 'package:flutter_daily_practice/features/home/data/datasources/shared_preferences_datasource.dart';
-import 'package:flutter_daily_practice/features/home/data/repository/home_repository_impl.dart';
-import 'package:flutter_daily_practice/features/home/domain/usecases/get_users_usecase.dart';
+import 'package:flutter_daily_practice/dependency_manager/init_dependencies.dart';
 import 'package:flutter_daily_practice/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter_daily_practice/features/home/presentation/ui/screens/HomeScreen.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initDependencies();
+  runApp(
+    MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => serviceLocator<HomeBloc>())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -26,19 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      // home: BlocProvider(
-      //   create: (BuildContext context) => HomeBloc(
-      //     getUsersUseCase: GetUsersUseCase(
-      //       homeRepository: HomeRepositoryImpl(
-      //         remoteDataSource: HomeRemoteDatasourceImpl(),
-      //         jsonDataSource: JsonDataSourceImpl(),
-      //         sharedPreferencesDatasource: SharedPreferencesImpl(),
-      //       ),
-      //     ),
-      //   ),
-      //   child: HomeScreen(),
-      // ),
-      home: WithSliversScreen(),
+      home: HomeScreen(),
     );
   }
 }
