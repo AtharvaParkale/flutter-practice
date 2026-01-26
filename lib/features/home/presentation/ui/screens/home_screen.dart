@@ -24,11 +24,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<User> users = [];
 
+  final ScrollController _controller = ScrollController();
+
   @override
   void initState() {
     super.initState();
-
     context.read<HomeBloc>().add(GetUsersEvent());
+    _controller.addListener(() {
+      if (_controller.position.pixels >=
+          _controller.position.maxScrollExtent - 200) {
+        context.read<HomeBloc>().add(GetUsersEvent());
+      }
+    });
   }
 
   @override
@@ -36,20 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
         if (state is SuccessState) {
-          users = [
-            ...state.users,
-            ...state.users,
-            ...state.users,
-            ...state.users,
-          ];
-
-          // List<User> filtered = users.where((user) {
-          //   return user.name.contains('L');
-          // }).toList();
-          //
-          // users = filtered;
-          //
-          // users.sort((a, b) => b.id.compareTo(a.id));
+          users.addAll(state.users);
         }
       },
       buildWhen: (prev, curr) =>
@@ -66,56 +60,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 _buildSnackBar(context);
               },
             ),
-            body: CustomScrollView(
-              slivers: [
-                SliverAppBar(title: const Text('Home Screen'), floating: true),
-                SliverAnimatedList(
-                  initialItemCount: users.length,
-                  itemBuilder:
-                      (
-                        BuildContext context,
-                        int index,
-                        Animation<double> animation,
-                      ) {
-                        final user = users[index];
-
-                        return SizeTransition(
-                          sizeFactor: animation,
-                          child: ListTile(
-                            title: Text(user.name),
-                            subtitle: Text(user.address?.geo?.lat ?? ""),
-                          ),
-                        );
-                      },
-                ),
-              ],
+            body: ListView.builder(
+              controller: _controller,
+              itemCount: users.length,
+              itemBuilder: (BuildContext context, int index) {
+                final user = users[index];
+                return ListTile(
+                  title: Text(user.name),
+                  subtitle: Text(user.address?.geo?.lat ?? ""),
+                );
+              },
             ),
-            // body: Center(
-            //   child: Stack(
-            //     alignment: AlignmentDirectional.center,
-            //     clipBehavior: Clip.none,
-            //     children: [
-            //       Container(color: Colors.red, height: 300, width: 300),
-            //       Positioned(
-            //         top: -30,
-            //         child: Container(
-            //           color: Colors.yellow,
-            //           height: 200,
-            //           width: 200,
-            //         ),
-            //       ),
-            //       Container(color: Colors.green, height: 100, width: 100),
-            //       Positioned(
-            //         left: 30,
-            //         child: Container(
-            //           color: Colors.white,
-            //           height: 50,
-            //           width: 50,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
           );
         }
         if (state is ErrorState) {
@@ -124,6 +79,16 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(body: Center(child: CircularProgressIndicator()));
       },
     );
+  }
+
+  void _filteringSortingLogic() {
+    List<User> filtered = users.where((user) {
+      return user.name.contains('L');
+    }).toList();
+
+    users = filtered;
+
+    users.sort((a, b) => b.id.compareTo(a.id));
   }
 
   Future<void> _buildNavigation(BuildContext context) async {
@@ -267,3 +232,30 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+// body: Center(
+//   child: Stack(
+//     alignment: AlignmentDirectional.center,
+//     clipBehavior: Clip.none,
+//     children: [
+//       Container(color: Colors.red, height: 300, width: 300),
+//       Positioned(
+//         top: -30,
+//         child: Container(
+//           color: Colors.yellow,
+//           height: 200,
+//           width: 200,
+//         ),
+//       ),
+//       Container(color: Colors.green, height: 100, width: 100),
+//       Positioned(
+//         left: 30,
+//         child: Container(
+//           color: Colors.white,
+//           height: 50,
+//           width: 50,
+//         ),
+//       ),
+//     ],
+//   ),
+// ),
