@@ -66,29 +66,55 @@ class _HomeScreenState extends State<HomeScreen> {
                 _buildSnackBar(context);
               },
             ),
-            body: CustomScrollView(
-              slivers: [
-                SliverAppBar(title: const Text('Home Screen'), floating: true),
-                SliverAnimatedList(
-                  initialItemCount: users.length,
-                  itemBuilder:
-                      (
-                        BuildContext context,
-                        int index,
-                        Animation<double> animation,
-                      ) {
-                        final user = users[index];
-
-                        return SizeTransition(
-                          sizeFactor: animation,
-                          child: ListTile(
-                            title: Text(user.name),
-                            subtitle: Text(user.address?.geo?.lat ?? ""),
-                          ),
-                        );
-                      },
-                ),
-              ],
+            // body: CustomScrollView(
+            //   slivers: [
+            //     SliverAppBar(title: const Text('Home Screen'), floating: true),
+            //     SliverAnimatedList(
+            //       initialItemCount: users.length,
+            //       itemBuilder:
+            //           (
+            //             BuildContext context,
+            //             int index,
+            //             Animation<double> animation,
+            //           ) {
+            //             final user = users[index];
+            //
+            //             return SizeTransition(
+            //               sizeFactor: animation,
+            //               child: ListTile(
+            //                 title: Text(user.name),
+            //                 subtitle: Text(user.address?.geo?.lat ?? ""),
+            //               ),
+            //             );
+            //           },
+            //     ),
+            //   ],
+            // ),
+            body: Center(
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                clipBehavior: Clip.none,
+                children: [
+                  Container(color: Colors.red, height: 300, width: 300),
+                  Positioned(
+                    top: -30,
+                    child: Container(
+                      color: Colors.yellow,
+                      height: 200,
+                      width: 200,
+                    ),
+                  ),
+                  Container(color: Colors.green, height: 100, width: 100),
+                  Positioned(
+                    left: 30,
+                    child: Container(
+                      color: Colors.white,
+                      height: 50,
+                      width: 50,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }
