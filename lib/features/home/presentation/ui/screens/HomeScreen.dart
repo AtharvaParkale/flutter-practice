@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_daily_practice/features/animations/animations_screen.dart';
 import 'package:flutter_daily_practice/features/home/domain/entities/user.dart';
 import 'package:flutter_daily_practice/features/home/presentation/bloc/home_bloc.dart';
 
@@ -41,6 +42,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ...state.users,
             ...state.users,
           ];
+
+          List<User> filtered = users.where((user) {
+            return user.name.contains('L');
+          }).toList();
+
+          users = filtered;
+
+          users.sort((a, b) => b.id.compareTo(a.id));
         }
       },
       buildWhen: (prev, curr) =>
@@ -48,6 +57,15 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, state) {
         if (state is SuccessState) {
           return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                await _buildNavigation(context);
+
+                _buildPopUp(context);
+
+                _buildSnackBar(context);
+              },
+            ),
             body: CustomScrollView(
               slivers: [
                 SliverAppBar(title: const Text('Home Screen'), floating: true),
@@ -80,6 +98,46 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(body: Center(child: CircularProgressIndicator()));
       },
     );
+  }
+
+  Future<void> _buildNavigation(BuildContext context) async {
+    final int? number = await Navigator.of(context).push<int>(
+      MaterialPageRoute(
+        builder: (BuildContext context) => const AnimationsScreen(),
+      ),
+    );
+
+    print('number :: $number');
+  }
+
+  void _buildPopUp(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Text("Demo");
+      },
+    );
+  }
+
+  void _buildSnackBar(BuildContext context) {
+    final messenger = ScaffoldMessenger.of(context);
+
+    messenger
+      ..removeCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text('Demo'),
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 2),
+          animation: CurvedAnimation(
+            parent: AnimationController(
+              vsync: Navigator.of(context),
+              duration: const Duration(milliseconds: 300),
+            ),
+            curve: Curves.bounceInOut,
+          ),
+        ),
+      );
   }
 
   Scaffold _formScreen() {
