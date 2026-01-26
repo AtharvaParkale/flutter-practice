@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_daily_practice/features/animations/layout_with_slivers.dart';
+import 'package:flutter_daily_practice/features/animations/layout_without_slivers.dart';
+import 'package:flutter_daily_practice/features/animations/slivers_screen.dart';
 import 'package:flutter_daily_practice/features/animations/ticker_screen.dart';
 import 'package:flutter_daily_practice/features/home/data/datasources/json_data_source.dart';
 import 'package:flutter_daily_practice/features/home/data/datasources/remote_datasource.dart';
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
       //   ),
       //   child: HomeScreen(),
       // ),
-      home: SimpleTicker(),
+      home: WithSliversScreen(),
     );
   }
 }
