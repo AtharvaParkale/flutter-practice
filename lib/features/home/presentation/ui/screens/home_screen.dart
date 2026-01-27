@@ -11,7 +11,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   final TextEditingController nameController = TextEditingController(text: "");
   final TextEditingController emailController = TextEditingController(text: "");
   final TextEditingController idController = TextEditingController(text: "");
@@ -24,18 +25,36 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<User> users = [];
 
+  // this is for pagination
   final ScrollController _controller = ScrollController();
+
+  // this is for animation
+  late AnimationController animationController;
+  late Animation<Offset> listSlideAnimation;
 
   @override
   void initState() {
     super.initState();
     context.read<HomeBloc>().add(GetUsersEvent());
-    _controller.addListener(() {
-      if (_controller.position.pixels >=
-          _controller.position.maxScrollExtent - 200) {
-        context.read<HomeBloc>().add(GetUsersEvent());
-      }
-    });
+
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+
+    listSlideAnimation = Tween(
+      begin: Offset(-1, 1),
+      end: Offset(0, 0),
+    ).animate(animationController);
+
+    animationController.forward();
+
+    // _controller.addListener(() {
+    //   if (_controller.position.pixels >=
+    //       _controller.position.maxScrollExtent - 200) {
+    //     context.read<HomeBloc>().add(GetUsersEvent());
+    //   }
+    // });
   }
 
   @override
@@ -65,9 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: users.length,
               itemBuilder: (BuildContext context, int index) {
                 final user = users[index];
-                return ListTile(
-                  title: Text(user.name),
-                  subtitle: Text(user.address?.geo?.lat ?? ""),
+                return SlideTransition(
+                  position: listSlideAnimation,
+                  child: ListTile(
+                    title: Text(user.name),
+                    subtitle: Text(user.address?.geo?.lat ?? ""),
+                    trailing: Text("Remove"),
+                  ),
                 );
               },
             ),
