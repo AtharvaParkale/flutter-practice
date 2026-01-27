@@ -89,7 +89,29 @@ class _HomeScreenState extends State<HomeScreen>
                   child: ListTile(
                     title: Text(user.name),
                     subtitle: Text(user.address?.geo?.lat ?? ""),
-                    trailing: Text("Remove"),
+                    trailing: GestureDetector(
+                      onTap: () {
+                        User currUser = user;
+                        int idx = users.indexOf(currUser);
+
+                        User newUser = User(
+                          username: "Atharva",
+                          address: null,
+                          phone: '',
+                          website: '',
+                          company: null,
+                          name: 'Atharva',
+                          email: '',
+                          id: 7,
+                        );
+
+                        setState(() {
+                          users.removeAt(idx);
+                          users.insert(idx, newUser);
+                        });
+                      },
+                      child: Text("Remove"),
+                    ),
                   ),
                 );
               },
