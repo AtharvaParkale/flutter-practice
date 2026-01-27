@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen>
   List<User> users = [];
 
   // this is for pagination
-  final ScrollController _controller = ScrollController();
+  final ScrollController _paginationController = ScrollController();
 
   // this is for animation
   late AnimationController animationController;
@@ -49,12 +49,12 @@ class _HomeScreenState extends State<HomeScreen>
 
     animationController.forward();
 
-    // _controller.addListener(() {
-    //   if (_controller.position.pixels >=
-    //       _controller.position.maxScrollExtent - 200) {
-    //     context.read<HomeBloc>().add(GetUsersEvent());
-    //   }
-    // });
+    _paginationController.addListener(() {
+      if (_paginationController.position.pixels >=
+          _paginationController.position.maxScrollExtent - 200) {
+        context.read<HomeBloc>().add(GetUsersEvent());
+      }
+    });
   }
 
   @override
@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen>
               },
             ),
             body: ListView.builder(
-              controller: _controller,
+              controller: _paginationController,
               itemCount: users.length,
               itemBuilder: (BuildContext context, int index) {
                 final user = users[index];
