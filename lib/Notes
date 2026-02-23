@@ -3,3 +3,6 @@
 3. What happens a build is created? Which files are omitted?
 4. How is testing in flutter done?
 5. What are the different types of testing?
+6. What is the difference between repository, MVVM, clean architecture?
+7. What is profile mode? How can it be useful?
+8. Methods of listview builder(idx) -> That makes listview builder special.
