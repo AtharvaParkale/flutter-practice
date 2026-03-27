@@ -1,0 +1,40 @@
+1. Command pattern is a behavioural design pattern, that turn request into a object.
+- Command pattern = Encapsulate a request to object
+
+2. Real world analogy
+- Think of a remote control
+- Button = command
+- Remote = invoker
+- TV/AC = receiver
+
+3. Without command pattern
+- if (button == "ON") tv.turnOn();
+  else if (button == "OFF") tv.turnOff();
+- Tight coupling
+- Hard to extend
+- No undo / redo
+
+4. Structure of command pattern
+- Command (Interface)
+- Concrete Command
+- Receiver (Actual Logic )
+- Invoker (Triggers Command)
+
+5. In real flutter these patterns can be used to handle button
+clicks (diff logic , sign up )
+
+6. Use command pattern when
+- You  need tpo undo / redo
+- You want to queue the task
+- You want to decouple sender/ receiver
+
+7. Main difference between command pattern and strategy pattern
+- Strategy Pattern => Choose how to do , Focuses on algorithm,
+Switch behaviour
+- Command Pattern => Choose what to do, focus is 'Request', Trigger action
+
+
+
+
+
+
