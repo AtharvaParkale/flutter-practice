@@ -33,6 +33,23 @@ clicks (diff logic , sign up )
 Switch behaviour
 - Command Pattern => Choose what to do, focus is 'Request', Trigger action
 
+8. Without command pattern :
+
+button.onClick = () {
+  paymentService.processPayment();
+};
+
+- UI is Tightly coupled
+
+9. With command pattern :
+
+button.onClick = () {
+  command.execute();
+};
+
+- UI doesn't know what happens
+- It just triggers a command
+
 
 
 
