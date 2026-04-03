@@ -5,6 +5,8 @@ import 'package:flutter_daily_practice/features/design_patterns/behavioral/comma
 import 'package:flutter_daily_practice/features/design_patterns/behavioral/command_pattern/flutter_impl/redo_undo_implementation/redo_undo_screen.dart';
 import 'package:flutter_daily_practice/features/home/presentation/bloc/home_bloc.dart';
 
+import 'features/demo_screen.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initDependencies();
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: RedoUndoScreen(),
+      home: HomePage(),
     );
   }
 }

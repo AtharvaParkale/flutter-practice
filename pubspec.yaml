@@ -16,6 +16,7 @@ dependencies:
   shared_preferences: ^2.5.3
   get_it: ^9.2.0
   app_links: ^7.0.0
+  webview_flutter: ^4.13.1
 
 dev_dependencies:
   flutter_test:
