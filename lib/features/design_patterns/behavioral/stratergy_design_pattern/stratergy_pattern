@@ -1,0 +1,31 @@
+1. What is strategy pattern ?
+- Strategy pattern is a behavioral design pattern.
+- Lets you define family of algorithms, which can be inter changeable at run time
+- Strategy Pattern = Choose behavior at runtime without changing the code that uses it
+
+2. In google maps you can choose car route, Walking route or cycling route
+- Same app -> Different strategies (Algorithms)
+- Without strategy pattern we might need to use if-else, this causes the code to be too complex,
+hard to extend this code this violates the open/close principle.
+
+if (type == "car") { ... }
+else if (type == "walk") { ... }
+else if (type == "bike") { ... }
+
+3. Structure of Strategy Pattern
+- Strategy Interface (interface/abstract)
+- Concrete Strategies (Different Implementation)
+- Context (Decide which strategy to use)
+
+4. Key Benefits
+- Removes if-else
+- Easy to add new strategies
+- Follows open/ close principle
+- Cleaner and testable
+
+5. When to use strategy pattern
+- When you have multiple ways to do the same way
+- You want to switch logic at runtime
+- You want to avoid huge conditional logic
+
+

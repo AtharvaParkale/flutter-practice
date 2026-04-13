@@ -1,0 +1,12 @@
+1. Example link - myapp://product/101
+2. Add uni_links package
+3. Open android manifest file, make the below changes there
+
+<intent-filter>
+    <action android:name="android.intent.action.VIEW"/>
+
+    <category android:name="android.intent.category.DEFAULT"/>
+    <category android:name="android.intent.category.BROWSABLE"/>
+
+    <data android:scheme="myapp"/>
+</intent-filter>

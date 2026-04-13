@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_practice/dependency_manager/init_dependencies.dart';
+import 'package:flutter_daily_practice/features/design_patterns/behavioral/command_pattern/flutter_impl/button_example/payment_screen.dart';
+import 'package:flutter_daily_practice/features/design_patterns/behavioral/command_pattern/flutter_impl/redo_undo_implementation/redo_undo_screen.dart';
 import 'package:flutter_daily_practice/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter_daily_practice/features/layout_practice/example_one.dart';
 import 'package:flutter_daily_practice/features/layout_practice/example_two.dart';
 
 final RouteObserver<ModalRoute<void>> routeObserver =
     RouteObserver<ModalRoute<void>>();
+
+import 'features/demo_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
