@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_practice/dependency_manager/init_dependencies.dart';
 import 'package:flutter_daily_practice/features/home/presentation/bloc/home_bloc.dart';
+import 'package:flutter_daily_practice/features/layout_practice/example_three.dart';
 import 'package:flutter_daily_practice/features/layout_practice/example_two.dart';
 
 final RouteObserver<ModalRoute<void>> routeObserver =
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: ScreenTwo(),
+      home: ExampleThree(),
     );
   }
 }
