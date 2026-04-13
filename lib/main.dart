@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_practice/dependency_manager/init_dependencies.dart';
-import 'package:flutter_daily_practice/features/daily/element_diffin/value_key_example.dart';
 import 'package:flutter_daily_practice/features/home/presentation/bloc/home_bloc.dart';
+import 'package:flutter_daily_practice/features/layout_practice/example_one.dart';
+import 'package:flutter_daily_practice/features/layout_practice/example_two.dart';
+
+final RouteObserver<ModalRoute<void>> routeObserver =
+    RouteObserver<ModalRoute<void>>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: ValueKeyExample(),
+      home: ScreenTwo(),
     );
   }
 }
