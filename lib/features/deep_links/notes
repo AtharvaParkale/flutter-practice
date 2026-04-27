@@ -1,0 +1,21 @@
+Deep Links
+=======================================================
+1. URL'S that open a specific screen inside your app.
+=======================================================
+=> Type os deep links
+1. Basic Deep Link (Custom Scheme)
+2. App Links (Android) / Universal Links (iOS)
+=======================================================
+=> Basic deep link flow
+Case 1 : App Closed
+- User clicks a link.
+- OS launches the app
+- Flutter receive's the initial link
+- user navigates to the correct screen
+
+Case 2 : App OPEN (background)
+- User clicks the link
+- App resumes
+- Flutter receives stream event
+- Navigate
+=======================================================
