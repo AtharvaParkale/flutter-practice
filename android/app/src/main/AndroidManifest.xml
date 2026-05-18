@@ -24,6 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <!-- Custom scheme deep links: myapp://screenone?id=... -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -36,6 +37,33 @@
                 <data
                     android:host="screentwo"
                     android:scheme="myapp" />
+            </intent-filter>
+
+            <!--
+                App Links (HTTPS deep links): https://yourdomain.com/screenone?id=...
+
+                android:autoVerify="true" is the key difference from a plain deep link:
+                  • Without it → Android shows a disambiguation dialog ("Open with...")
+                  • With it    → Android verifies domain ownership via assetlinks.json
+                                 and opens your app directly (no dialog)
+
+                For verification to work you must host:
+                  https://yourdomain.com/.well-known/assetlinks.json
+
+                To test locally without a server, use adb (bypasses verification):
+                  adb shell am start -W -a android.intent.action.VIEW \
+                    -d "https://yourdomain.com/screenone?id=99" \
+                    com.example.flutter_daily_practice
+            -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="yourdomain.com" />
             </intent-filter>
 
         </activity>
